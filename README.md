@@ -6,7 +6,7 @@ Your company has decided to create a new line of business.  As a start to this e
 
 Your part of the prototype will be to develop a Web API that will be used by customers to manage a basket of items. The business describes the basic workflow is as follows:
 
-This API will allow our users to set up and manage an order of items.  The API will allow users to add and remove items and change the quantity of the items they want.  They should also be able to simply clear out all items from their order and start again.
+> This API will allow our users to set up and manage an order of items.  The API will allow users to add and remove items and change the quantity of the items they want.  They should also be able to simply clear out all items from their order and start again.
 
 The functionality to complete the purchase of the items will be handled separately and will be written by a different team once this prototype is complete.  
 
@@ -20,4 +20,4 @@ Create a client library that makes use of the API endpoints created in Part 1.  
 
 If we decide to bring you in for further discussions, you should be prepared to explain and defend any coding and design decisions you make as a part of this exercise.
 
-All code should be written in C# and target the .NET framework library version 4.5 or higher, or .NET core.  Please check all code into a publicly accessible repository on GitHub and send us a link to your repository.
+**All code should be written in C# and target the .NET framework library version 4.5 or higher, or .NET core.  Please check all code into a publicly accessible repository on GitHub and send us a link to your repository.**
