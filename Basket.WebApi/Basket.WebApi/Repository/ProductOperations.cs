@@ -1,35 +1,63 @@
-﻿using System;
+﻿using Basket.WebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Basket.WebApi.Repository
 {
+    /// <summary>
+    /// Class ProductOperations.
+    /// </summary>
     public class ProductOperations
     {
         BasketContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductOperations"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public ProductOperations(BasketContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Determines whether the specified sku is available.
+        /// </summary>
+        /// <param name="sku">The sku.</param>
+        /// <param name="quantity">The quantity.</param>
+        /// <returns><c>true</c> if the specified sku is available; otherwise, <c>false</c>.</returns>
         public bool IsAvailable(string sku, int quantity)
         {
             return _context.Products.Where(p => p.SKU.Trim() == sku.Trim() && p.Quantity >= quantity).Count() >= 1;
         }
 
-        public bool UpdateQuantity(string sku, int quantity)
+        /// <summary>
+        /// Updates the quantity.
+        /// </summary>
+        /// <param name="sku">The sku.</param>
+        /// <param name="quantity">The quantity.</param>
+        /// <returns>Tuple&lt;System.Boolean, System.Decimal&gt;.</returns>
+        public Tuple<bool, decimal> UpdateQuantity(string sku, int quantity)
         {
             bool rtn = false;
+            decimal tot = -1;
+
             if (IsAvailable(sku, quantity))
             {
-                _context.Products.Where(p => p.SKU.Trim() == sku.Trim()).FirstOrDefault().Quantity += quantity;
-                _context.SaveChanges();
-                rtn = true;
+                ProductModel prod = _context.Products.Where(p => p.SKU.Trim() == sku.Trim()).FirstOrDefault();
+                if (prod != null)
+                {
+                    prod.Quantity -= quantity;
+                    _context.SaveChanges();
+
+                    tot = quantity * prod.Price;
+                    rtn = true;
+                }
             }
 
-            return rtn;
+            return new Tuple<bool, decimal>(rtn, tot);
         }
     }
 }

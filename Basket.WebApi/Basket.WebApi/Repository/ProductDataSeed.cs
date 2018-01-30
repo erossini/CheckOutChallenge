@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Basket.WebApi.Repository
 {
-    public class AddProductData
+    public static class ProductDataSeed
     {
-        public AddProductData(BasketContext context)
+        public static void AddProductData(BasketContext context)
         {
             List<ProductModel> products = new List<ProductModel>() {
                 new ProductModel() { SKU = "A111", Description = "Surface Phone", Price = 100, Quantity = 100 },

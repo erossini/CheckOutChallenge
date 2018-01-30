@@ -11,6 +11,11 @@ namespace Basket.WebApi.Enums
     public enum BasketError
     {
         /// <summary>
+        /// The no error
+        /// </summary>
+        NoError = 0,
+
+        /// <summary>
         /// The model is not valid
         /// </summary>
         ModelIsNotValid = 100,
@@ -29,5 +34,10 @@ namespace Basket.WebApi.Enums
         /// The product not available
         /// </summary>
         ProductNotAvailable = 103,
+
+        /// <summary>
+        /// The duplicated sku
+        /// </summary>
+        DuplicatedSKU = 104,
     }
 }

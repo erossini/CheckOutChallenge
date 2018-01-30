@@ -12,12 +12,10 @@ namespace Basket.WebApi.Controllers
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
-        private readonly ILogger _logger;
         private readonly BasketContext _context;
 
-        public ProductController(ILogger<ProductController> logger, BasketContext context)
+        public ProductController(BasketContext context)
         {
-            _logger = logger;
             _context = context;
         }
 

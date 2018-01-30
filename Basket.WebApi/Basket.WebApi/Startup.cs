@@ -29,18 +29,22 @@ namespace Basket.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging();
             services.AddDbContext<BasketContext>(opt => opt.UseInMemoryDatabase("BasketDatabase"));
+
+            services.AddLogging();
             services.AddMvc().AddFluentValidation();
 
             services.AddTransient<IValidator<BasketModel>, BasketModelValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            var context = serviceProvider.GetService<BasketContext>();
+            ProductDataSeed.AddProductData(context);
 
             if (env.IsDevelopment())
             {
@@ -48,13 +52,6 @@ namespace Basket.WebApi
             }
 
             app.UseMvc();
-
-            // add products
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<BasketContext>();
-                new AddProductData(context);
-            }
         }
     }
 }
