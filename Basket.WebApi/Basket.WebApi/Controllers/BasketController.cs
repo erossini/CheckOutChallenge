@@ -34,14 +34,10 @@ namespace Basket.WebApi.Controllers
         public IActionResult Add([FromBody]BasketModel model)
         {
             BasketResponse response = new BasketResponse();
+            response.Error = BasketError.ModelIsNotValid;
             response.Success = false;
 
-            if (!ModelState.IsValid)
-            {
-                response.Error = BasketError.ModelIsNotValid;
-            }
-            else
-            {
+            if (ModelState.IsValid) {
                 var validationResult = model.Validate();
                 if (validationResult.IsValid)
                 {
@@ -54,6 +50,49 @@ namespace Basket.WebApi.Controllers
             }
 
             return BadRequest(response);
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteItem([FromBody] DeleteItemRequest request)
+        {
+            BasketResponse response = new BasketResponse();
+            response.Error = BasketError.ModelIsNotValid;
+            response.Success = false;
+
+            if (ModelState.IsValid)
+            {
+                var validationResult = request.Validate();
+                if (validationResult.IsValid)
+                {
+                    new BasketOperations(_context).DeleteItem(request);
+                    return Ok();
+                }
+            }
+
+            return BadRequest(response);
+        }
+
+        /// <summary>
+        /// Empties the basket.
+        /// </summary>
+        /// <param name="clientId">The client identifier.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpDelete]
+        public IActionResult EmptyBasket([FromBody] string clientId)
+        {
+            if (!string.IsNullOrEmpty(clientId))
+            {
+                new BasketOperations(_context).EmptyBasket(clientId);
+                return Ok();
+            }
+            else
+            {
+                BasketResponse response = new BasketResponse();
+                response.Error = BasketError.ClientIdCantBeNull;
+                response.Success = false;
+
+                return BadRequest(response);
+            }
         }
     }
 }

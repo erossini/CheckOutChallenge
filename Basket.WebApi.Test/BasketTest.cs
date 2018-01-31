@@ -127,5 +127,33 @@ namespace Basket.WebApi.Test
                 Assert.Equal(0, (int)value.SuccessResult);
             }
         }
+
+        [Fact(DisplayName = "Empty your basket")]
+        public void EmptyYourBasket()
+        {
+            using (var context = GetContextWithData())
+            using (var controller = new BasketController(context))
+            {
+                BasketModel model = new BasketModel();
+                model.ClientId = "A120";
+                model.Quantity = 1;
+                model.SKU = "P113";
+
+                IActionResult result = controller.Add(model);
+                Assert.IsType<OkResult>(result);
+
+                model = new BasketModel();
+                model.ClientId = "A120";
+                model.Quantity = 1;
+                model.SKU = "P113";
+
+                result = controller.Add(model);
+                Assert.IsType<OkResult>(result);
+
+                controller.EmptyBasket("A120");
+                List<BasketModel> list = (List<BasketModel>)controller.Get("A120");
+                Assert.True(list.Count == 0);
+            }
+        }
     }
 }

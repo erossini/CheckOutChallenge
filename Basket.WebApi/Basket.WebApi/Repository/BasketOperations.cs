@@ -62,5 +62,23 @@ namespace Basket.WebApi.Repository
 
             return rtn;
         }
+
+        public void DeleteItem(DeleteItemRequest request)
+        {
+            var list = _context.Baskets.Where(b => b.ClientId == request.ClientId && b.SKU == request.SKU);
+            _context.Baskets.RemoveRange(list);
+            _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Empties the basket.
+        /// </summary>
+        /// <param name="clientId">The client identifier.</param>
+        public void EmptyBasket(string clientId)
+        {
+            var list = _context.Baskets.Where(b => b.ClientId == clientId);
+            _context.Baskets.RemoveRange(list);
+            _context.SaveChanges();
+        }
     }
 }
