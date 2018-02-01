@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Basket.WebApi.Enums;
 using Basket.WebApi.Models;
 using Basket.WebApi.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace Basket.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     public class BasketController : Controller
     {

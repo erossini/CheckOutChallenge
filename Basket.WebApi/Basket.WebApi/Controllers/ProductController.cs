@@ -1,5 +1,6 @@
 ﻿using Basket.WebApi.Models;
 using Basket.WebApi.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Basket.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ProductController : Controller
     {

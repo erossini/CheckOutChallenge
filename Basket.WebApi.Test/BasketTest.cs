@@ -155,5 +155,19 @@ namespace Basket.WebApi.Test
                 Assert.True(list.Count == 0);
             }
         }
+
+        [Fact(DisplayName = "Verify creation token")]
+        public void TokenTest()
+        {
+            using (var context = GetContextWithData())
+            using (var controller = new TokenController())
+            {
+                IActionResult result = controller.Create("test1", "test1");
+                Assert.IsType<OkObjectResult>(result);
+
+                TokenResponse token = (TokenResponse)((ObjectResult)result).Value;
+                Assert.NotEmpty(token.Token);
+            }
+        }
     }
 }
