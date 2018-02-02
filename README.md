@@ -1,6 +1,8 @@
 # CheckOutChallenge
 
-## Part 1:
+## Challenge Definition
+
+### Part 1:
 
 Your company has decided to create a new line of business.  As a start to this effort, they’ve come to you to help develop a prototype.  It is expected that this prototype will be part of a beta test with some actual customers, and if successful, it is likely that the prototype will be expanded into a full product.
 
@@ -14,10 +16,12 @@ For the purpose of this exercise, you can assume there’s an existing data stor
 
 Feel free to make any assumptions whenever you are not certain about the requirements, but make sure your assumptions are made clear either through the design or additional documentation.
 
-## Part 2
+### Part 2
 
 Create a client library that makes use of the API endpoints created in Part 1.  The purpose of this code to provide authors of client applications a simple framework to use in their applications.
 
 If we decide to bring you in for further discussions, you should be prepared to explain and defend any coding and design decisions you make as a part of this exercise.
 
 **All code should be written in C# and target the .NET framework library version 4.5 or higher, or .NET core.  Please check all code into a publicly accessible repository on GitHub and send us a link to your repository.**
+
+## Implementation
