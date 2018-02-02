@@ -35,3 +35,18 @@ The solution has different projects:
 For tests:
 - Basket.WebApi.Test
 - Basket.ConsoleApp
+
+### Basket.DAL
+DAL (Data Layer) cointains **enums** and **models** that I'm using across projects. 
+
+Models are mainly divided in two folders: **Requests** and **Responses**. Those folders cointain models for the webapi but also I'm using this project in the **Basket.Library** and in tests.
+
+### Basket.WebApi
+This is the main project. 
+
+### Security layer with JWT
+JSON Web Token (JWT) is an open standard ([RFC 7519](https://tools.ietf.org/html/rfc7519)) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. **Authentication** is the most common scenario for using JWT. Once the user is logged in, each subsequent request will include the JWT, allowing the user to access routes, services, and resources that are permitted with that token.
+
+In this project a client can receive a JWT token if the username and password are valid. The function does a very easy check: if the username is equal to the password, a token is generated. 
+
+All requests to the webapis must have a JWT token. If not, the application returns an **401 UNAUTHORIZED**.
