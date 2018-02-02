@@ -1,5 +1,5 @@
 # CheckOutChallenge
-At the beginning this challenge seems to be implemented straight forward but I added some interesting features to render this challenge a bit more interesting. One of this challenge in this project is the **security layer**, althouth it is a basic implementation.
+At the beginning this challenge seems to be implemented straight forward but I added some interesting features to render this challenge a bit more interesting. One of this challenge in this project was the **security layer**, althouth it is a basic implementation.
 
 ## Challenge Definition
 
@@ -26,3 +26,12 @@ If we decide to bring you in for further discussions, you should be prepared to 
 **All code should be written in C# and target the .NET framework library version 4.5 or higher, or .NET core.  Please check all code into a publicly accessible repository on GitHub and send us a link to your repository.**
 
 ## Implementation
+The solution has different projects:
+
+- Basket.DAL
+- Basket.WebApi
+- Basket.Library
+
+For tests:
+- Basket.WebApi.Test
+- Basket.ConsoleApp
