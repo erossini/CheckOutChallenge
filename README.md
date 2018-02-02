@@ -66,3 +66,7 @@ There are 3 clients:
 - BasketClient cointans all calls to manage baskets
 - ProductClient cointains all calls to manage the list of products
 - TokenClient cointanins all calls to give a token
+
+### Tests
+In **Basket.WebApi.Test** there are tests for the login of the webapis. 
+**Basket.ConsoleApp** is a test application for testing the library.
