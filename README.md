@@ -59,7 +59,7 @@ In this project a client can receive a JWT token if the username and password ar
 
 All requests to the webapis must have a JWT token. If not, the application returns an **401 UNAUTHORIZED**.
 
-## Basket.Library
+### Basket.Library
 It is a generic library you use in other project to manage your basket. In this project I'm using a third party component called **Refit** ([here the repository](https://github.com/paulcbetts/refit)) to simplify the requests. 
 
 There are 3 clients:
