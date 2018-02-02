@@ -1,4 +1,5 @@
 # CheckOutChallenge
+At the beginning this challenge seems to be implemented straight forward but I added some interesting features to render this challenge a bit more interesting. One of this challenge in this project is the **security layer**, althouth it is a basic implementation.
 
 ## Challenge Definition
 
