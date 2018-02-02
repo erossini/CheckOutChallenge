@@ -50,9 +50,19 @@ This is the main project. Under **Controllers** folder, there are 3 controllers:
 - _Product_ returns a product list in the case of this project from a predefined list
 - _Token_ is responsible to authenticate the user and returns a token
 
+The **Repository** folder cointains the memory **DbContext** and the basic operation for basket and products.
+
 #### Security layer with JWT
 JSON Web Token (JWT) is an open standard ([RFC 7519](https://tools.ietf.org/html/rfc7519)) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. **Authentication** is the most common scenario for using JWT. Once the user is logged in, each subsequent request will include the JWT, allowing the user to access routes, services, and resources that are permitted with that token.
 
 In this project a client can receive a JWT token if the username and password are valid. The function does a very easy check: if the username is equal to the password, a token is generated. 
 
 All requests to the webapis must have a JWT token. If not, the application returns an **401 UNAUTHORIZED**.
+
+## Basket.Library
+It is a generic library you use in other project to manage your basket. In this project I'm using a third party component called **Refit** ([here the repository](https://github.com/paulcbetts/refit)) to simplify the requests. 
+
+There are 3 clients:
+- BasketClient cointans all calls to manage baskets
+- ProductClient cointains all calls to manage the list of products
+- TokenClient cointanins all calls to give a token
