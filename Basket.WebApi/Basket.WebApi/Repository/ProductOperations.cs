@@ -1,4 +1,5 @@
-﻿using Basket.WebApi.Models;
+﻿using Basket.DAL.Models;
+using Basket.WebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

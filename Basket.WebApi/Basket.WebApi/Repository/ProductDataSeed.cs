@@ -1,8 +1,5 @@
-﻿using Basket.WebApi.Models;
-using System;
+﻿using Basket.DAL.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Basket.WebApi.Repository
 {

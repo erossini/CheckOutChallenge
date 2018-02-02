@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Basket.WebApi.Enums;
-using Basket.WebApi.Models;
+using Basket.DAL.Enums;
+using Basket.DAL.Requests;
+using Basket.DAL.Responses;
 using Basket.WebApi.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
 
 namespace Basket.WebApi.Controllers
 {
@@ -24,7 +21,7 @@ namespace Basket.WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BasketModel> Get(string clientId)
+        public IEnumerable<BasketRequest> Get(string clientId)
         {
             if (_context.Baskets == null)
                 return null;
@@ -33,7 +30,7 @@ namespace Basket.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody]BasketModel model)
+        public IActionResult Add([FromBody]BasketRequest model)
         {
             BasketResponse response = new BasketResponse();
             response.Error = BasketError.ModelIsNotValid;
@@ -41,7 +38,7 @@ namespace Basket.WebApi.Controllers
 
             if (ModelState.IsValid) {
                 var validationResult = model.Validate();
-                if (validationResult.IsValid)
+                if (validationResult == BasketError.NoError)
                 {
                     response.Error = new BasketOperations(_context).AddOrUpdateBasketItem(model);
                     if (response.Error == BasketError.NoError)
@@ -64,7 +61,7 @@ namespace Basket.WebApi.Controllers
             if (ModelState.IsValid)
             {
                 var validationResult = request.Validate();
-                if (validationResult.IsValid)
+                if (validationResult == BasketError.NoError)
                 {
                     new BasketOperations(_context).DeleteItem(request);
                     return Ok();

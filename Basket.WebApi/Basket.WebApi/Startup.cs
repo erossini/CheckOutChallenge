@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Basket.WebApi.Helpers;
-using Basket.WebApi.Models;
-using Basket.WebApi.Models.Validations;
 using Basket.WebApi.Repository;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Basket.WebApi
@@ -45,7 +37,6 @@ namespace Basket.WebApi
 
             // add validation with FluentValidation
             services.AddMvc().AddFluentValidation();
-            services.AddTransient<IValidator<BasketModel>, BasketModelValidation>();
 
             // add seurity token with JWT
             services

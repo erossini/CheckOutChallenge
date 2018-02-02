@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Basket.DAL.Models.Requests;
 using Basket.WebApi.Helpers;
 using Basket.WebApi.Models;
 using Microsoft.AspNetCore.Http;
@@ -18,10 +19,11 @@ namespace Basket.WebApi.Controllers
     public class TokenController : Controller
     {
         [HttpPost]
-        public IActionResult Create(string username, string password)
+        public IActionResult Create([FromBody]TokenRequest request)
         {
-            if (IsValidUserAndPasswordCombination(username, password))
-                return Ok(GenerateToken(username));
+            if (request != null)
+                if (IsValidUserAndPasswordCombination(request.Username, request.Password))
+                    return Ok(GenerateToken(request.Username));
             return BadRequest();
         }
 

@@ -1,9 +1,6 @@
-﻿using Basket.WebApi.Models;
+﻿using Basket.DAL.Models;
+using Basket.DAL.Requests;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Basket.WebApi.Repository
 {
@@ -14,7 +11,7 @@ namespace Basket.WebApi.Repository
         {
         }
 
-        public DbSet<BasketModel> Baskets { get; set; }
+        public DbSet<BasketRequest> Baskets { get; set; }
 
         public DbSet<ProductModel> Products { get; set; }
     }

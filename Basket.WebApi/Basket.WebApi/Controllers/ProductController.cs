@@ -1,4 +1,5 @@
-﻿using Basket.WebApi.Models;
+﻿using Basket.DAL.Models;
+using Basket.WebApi.Models;
 using Basket.WebApi.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

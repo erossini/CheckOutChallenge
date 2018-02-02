@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Basket.WebApi.Enums
+namespace Basket.DAL.Enums
 {
     /// <summary>
     /// BasketError enum

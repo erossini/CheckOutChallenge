@@ -1,5 +1,8 @@
+using Basket.DAL.Enums;
+using Basket.DAL.Models;
+using Basket.DAL.Requests;
+using Basket.DAL.Responses;
 using Basket.WebApi.Controllers;
-using Basket.WebApi.Enums;
 using Basket.WebApi.Models;
 using Basket.WebApi.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +28,9 @@ namespace Basket.WebApi.Test
             context.Products.Add(new ProductModel() { SKU = "P113", Description = "Surface Pro 2", Price = 140, Quantity = 200 });
             context.Products.Add(new ProductModel() { SKU = "P111", Description = "Windows10 Pro", Price = 123, Quantity = 600 });
 
-            context.Baskets.Add(new BasketModel() { ClientId = "A111", Quantity = 5, SKU = "P111", TotalPrice = 500 });
-            context.Baskets.Add(new BasketModel() { ClientId = "A111", Quantity = 1, SKU = "P112", TotalPrice = 200 });
-            context.Baskets.Add(new BasketModel() { ClientId = "A115", Quantity = 1, SKU = "P112", TotalPrice = 200 });
+            context.Baskets.Add(new BasketRequest() { ClientId = "A111", Quantity = 5, SKU = "P111", TotalPrice = 500 });
+            context.Baskets.Add(new BasketRequest() { ClientId = "A111", Quantity = 1, SKU = "P112", TotalPrice = 200 });
+            context.Baskets.Add(new BasketRequest() { ClientId = "A115", Quantity = 1, SKU = "P112", TotalPrice = 200 });
             context.SaveChanges();
 
             return context;
@@ -39,7 +42,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new BasketController(context))
             {
-                List<BasketModel> result = (List<BasketModel>)controller.Get("A115");
+                List<BasketRequest> result = (List<BasketRequest>)controller.Get("A115");
 
                 Assert.NotNull(result);
                 Assert.Single(result);
@@ -53,7 +56,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new BasketController(context))
             {
-                List<BasketModel> result = (List<BasketModel>)controller.Get("A111");
+                List<BasketRequest> result = (List<BasketRequest>)controller.Get("A111");
 
                 Assert.NotNull(result);
                 Assert.Equal(2, result.Count);
@@ -68,7 +71,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new BasketController(context))
             {
-                BasketModel model = new BasketModel();
+                BasketRequest model = new BasketRequest();
                 model.ClientId = "A111";
                 model.Quantity = 1;
                 model.SKU = "P113";
@@ -84,7 +87,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new BasketController(context))
             {
-                BasketModel model = new BasketModel();
+                BasketRequest model = new BasketRequest();
                 model.ClientId = "A120";
                 model.Quantity = 1;
                 model.SKU = "P113";
@@ -92,7 +95,7 @@ namespace Basket.WebApi.Test
                 IActionResult result = controller.Add(model);
                 Assert.IsType<OkResult>(result);
 
-                model = new BasketModel();
+                model = new BasketRequest();
                 model.ClientId = "A120";
                 model.Quantity = 1;
                 model.SKU = "P113";
@@ -100,7 +103,7 @@ namespace Basket.WebApi.Test
                 result = controller.Add(model);
                 Assert.IsType<OkResult>(result);
 
-                List<BasketModel> list = (List<BasketModel>)controller.Get("A120");
+                List<BasketRequest> list = (List<BasketRequest>)controller.Get("A120");
                 Assert.NotNull(list);
                 Assert.Single(list);
                 Assert.True(list[0].SKU == "P113" && list[0].TotalPrice == 280 && list[0].Quantity == 2);
@@ -113,7 +116,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new BasketController(context))
             {
-                BasketModel model = new BasketModel();
+                BasketRequest model = new BasketRequest();
                 model.ClientId = "A111";
                 model.Quantity = 1;
                 model.SKU = "P116";
@@ -134,7 +137,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new BasketController(context))
             {
-                BasketModel model = new BasketModel();
+                BasketRequest model = new BasketRequest();
                 model.ClientId = "A120";
                 model.Quantity = 1;
                 model.SKU = "P113";
@@ -142,7 +145,7 @@ namespace Basket.WebApi.Test
                 IActionResult result = controller.Add(model);
                 Assert.IsType<OkResult>(result);
 
-                model = new BasketModel();
+                model = new BasketRequest();
                 model.ClientId = "A120";
                 model.Quantity = 1;
                 model.SKU = "P113";
@@ -151,7 +154,7 @@ namespace Basket.WebApi.Test
                 Assert.IsType<OkResult>(result);
 
                 controller.EmptyBasket("A120");
-                List<BasketModel> list = (List<BasketModel>)controller.Get("A120");
+                List<BasketRequest> list = (List<BasketRequest>)controller.Get("A120");
                 Assert.True(list.Count == 0);
             }
         }
@@ -162,7 +165,7 @@ namespace Basket.WebApi.Test
             using (var context = GetContextWithData())
             using (var controller = new TokenController())
             {
-                IActionResult result = controller.Create("test1", "test1");
+                IActionResult result = controller.Create(new DAL.Models.Requests.TokenRequest("test1", "test1"));
                 Assert.IsType<OkObjectResult>(result);
 
                 TokenResponse token = (TokenResponse)((ObjectResult)result).Value;

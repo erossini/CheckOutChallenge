@@ -1,19 +1,13 @@
-﻿using Basket.WebApi.Models.Validations;
-using FluentValidation.Attributes;
-using System;
-using System.Collections.Generic;
+﻿using Basket.DAL.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Basket.WebApi.Models
+namespace Basket.DAL.Requests
 {
     /// <summary>
     /// Class Basket.
     /// </summary>
-    [Validator(typeof(BasketModelValidation))]
-    public class BasketModel
+    public class BasketRequest
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -47,10 +41,11 @@ namespace Basket.WebApi.Models
         /// <value>The total price.</value>
         public decimal TotalPrice { get; set; }
 
-        public FluentValidation.Results.ValidationResult Validate()
+        public BasketError Validate()
         {
-            var validator = new BasketModelValidation();
-            return validator.Validate(this);
+            if (string.IsNullOrEmpty(ClientId)) return BasketError.ClientIdCantBeNull;
+            if (string.IsNullOrEmpty(SKU)) return BasketError.SKUCantBeNull;
+            return BasketError.NoError;
         }
     }
 }

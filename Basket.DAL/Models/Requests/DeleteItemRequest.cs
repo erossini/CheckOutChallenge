@@ -1,16 +1,10 @@
-﻿using Basket.WebApi.Models.Validations;
-using FluentValidation.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Basket.DAL.Enums;
 
-namespace Basket.WebApi.Models
+namespace Basket.DAL.Requests
 {
     /// <summary>
     /// Class DeleteItemRequest.
     /// </summary>
-    [Validator(typeof(DeleteItemValidation))]
     public class DeleteItemRequest
     {
         /// <summary>
@@ -25,10 +19,11 @@ namespace Basket.WebApi.Models
         /// <value>The sku.</value>
         public string SKU { get; set; }
 
-        public FluentValidation.Results.ValidationResult Validate()
+        public BasketError Validate()
         {
-            var validator = new DeleteItemValidation();
-            return validator.Validate(this);
+            if (string.IsNullOrEmpty(ClientId)) return BasketError.ClientIdCantBeNull;
+            if (string.IsNullOrEmpty(SKU)) return BasketError.SKUCantBeNull;
+            return BasketError.NoError;
         }
     }
 }
